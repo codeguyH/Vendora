@@ -1,5 +1,9 @@
 import '../css/app.css';
 
+// 1. Import PrimeVue and the Theme Preset
+import Aura from '@primeuix/themes/aura';
+import PrimeVue from 'primevue/config';
+
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
@@ -13,6 +17,12 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
+            // 2. Correctly chain PrimeVue BEFORE mounting
+            .use(PrimeVue, {
+                theme: {
+                    preset: Aura,
+                },
+            })
             .mount(el);
     },
     progress: {
